@@ -14,13 +14,25 @@ int main()
     // Create a video mode object
 	VideoMode vm(1920, 1080);
 	// Create and open a window for the game
-	RenderWindow window(vm, "Timber Game!!", Style::Default);
+	RenderWindow window(vm, "Chaos Game", Style::Default);
 
     vector<Vector2f> vertices;
     vector<Vector2f> points;
 
 	while (window.isOpen())
 	{
+        /*
+		****************************************
+		Prompt the player
+		****************************************
+		*/
+        sf::Font font;
+        if (!font.loadFromFile("coolvetica.ttf"))
+        {
+            exit(69);
+        }
+        
+       
         /*
 		****************************************
 		Handle the players input
@@ -42,14 +54,15 @@ int main()
                     std::cout << "mouse x: " << event.mouseButton.x << std::endl;
                     std::cout << "mouse y: " << event.mouseButton.y << std::endl;
 
-                    if(vertices.size() < 3)
+                    if (vertices.size() < 3)
                     {
                         vertices.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
                     }
-                    else if(points.size() == 0)
+                    else if (points.size() == 0)
                     {
                         ///fourth click
                         ///push back to points vector
+                        points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
                     }
                 }
             }
@@ -58,18 +71,25 @@ int main()
 		{
 			window.close();
 		}
+
         /*
 		****************************************
 		Update
 		****************************************
 		*/
-
         if(points.size() > 0)
         {
             ///generate more point(s)
             ///select random vertex
             ///calculate midpoint between random vertex and the last point in the vector
             ///push back the newly generated coord.
+            
+            int randomVert = rand() % vertices.size();
+
+            double x = (points.back().x + vertices.at(randomVert).x) / 2.0;
+            double y = (points.back().y + vertices.at(randomVert).y) / 2.0;
+            
+            points.push_back(Vector2f(x, y));
         }
 
         /*
@@ -82,8 +102,16 @@ int main()
         {
             RectangleShape rect(Vector2f(10,10));
             rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
-            rect.setFillColor(Color::Blue);
+            rect.setFillColor(Color::Red);
             window.draw(rect);
+        }
+
+        for (int i = 0; i < points.size(); i++)
+        {
+            CircleShape circ(3, 3);
+            circ.setPosition(Vector2f(points[i].x, points[i].y));
+            circ.setFillColor(Color::White);
+            window.draw(circ);
         }
         window.display();
     }
