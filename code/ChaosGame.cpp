@@ -62,6 +62,7 @@ int main()
 				// Quit the game when the window is closed
 				window.close();
             }
+
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
@@ -115,7 +116,14 @@ int main()
 		*/
         window.clear();
 
-        window.draw(firstText);
+        if (vertices.size() < 3)
+        {
+            window.draw(firstText);
+        }
+        else if (points.size() == 0)
+        {
+            window.draw(secondText);
+        }
 
       
         for(int i = 0; i < vertices.size(); i++)
