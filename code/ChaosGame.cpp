@@ -27,11 +27,26 @@ int main()
 		****************************************
 		*/
         sf::Font font;
-        if (!font.loadFromFile("coolvetica.ttf"))
+        font.loadFromFile("fonts/coolvetica.ttf");
+        if (!font.loadFromFile("fonts/coolvetica.ttf"))
         {
             exit(69);
         }
         
+        sf::Text firstText;
+        firstText.setFont(font);
+        firstText.setString("Click any three points on the screen to create the vertices for the triangle.");
+        firstText.setCharacterSize(50);
+        firstText.setFillColor(sf::Color::White);
+        firstText.setPosition(20, 20);
+
+        sf::Text secondText;
+        secondText.setFont(font);
+        secondText.setString("Create a 4th point to start the algorithm.");
+        secondText.setCharacterSize(75);
+        secondText.setFillColor(sf::Color::White);  
+        secondText.setPosition(300, 740);
+
        
         /*
 		****************************************
@@ -98,6 +113,10 @@ int main()
 		****************************************
 		*/
         window.clear();
+
+        window.draw(firstText);
+
+      
         for(int i = 0; i < vertices.size(); i++)
         {
             RectangleShape rect(Vector2f(10,10));
@@ -105,6 +124,8 @@ int main()
             rect.setFillColor(Color::Red);
             window.draw(rect);
         }
+       
+      
 
         for (int i = 0; i < points.size(); i++)
         {
@@ -113,6 +134,8 @@ int main()
             circ.setFillColor(Color::White);
             window.draw(circ);
         }
+        
+
         window.display();
     }
 }
