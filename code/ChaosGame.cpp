@@ -27,8 +27,8 @@ int main()
 		****************************************
 		*/
         sf::Font font;
-        font.loadFromFile("fonts/coolvetica.ttf");
-        if (!font.loadFromFile("fonts/coolvetica.ttf"))
+        font.loadFromFile("coolvetica.ttf");
+        if (!font.loadFromFile("coolvetica.ttf"))
         {
             exit(69);
         }
@@ -48,6 +48,7 @@ int main()
         secondText.setPosition(300, 740);
 
        
+
         /*
 		****************************************
 		Handle the players input
