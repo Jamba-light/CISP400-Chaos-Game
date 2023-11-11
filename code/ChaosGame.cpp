@@ -19,6 +19,12 @@ int main()
     vector<Vector2f> vertices;
     vector<Vector2f> points;
 
+    sf::Texture texture;
+    if (!texture.loadFromFile("ObiDog.jpg"))
+        return(-1);
+    sf::Sprite Obi;
+    Obi.setTexture(texture);
+
 	while (window.isOpen())
 	{
         /*
@@ -27,25 +33,22 @@ int main()
 		****************************************
 		*/
         sf::Font font;
-        font.loadFromFile("coolvetica.ttf");
         if (!font.loadFromFile("coolvetica.ttf"))
-        {
-            exit(69);
-        }
+            return(-1);
         
         sf::Text firstText;
         firstText.setFont(font);
         firstText.setString("Click any three points on the screen to create the vertices for the triangle.");
-        firstText.setCharacterSize(50);
+        firstText.setCharacterSize(60);
         firstText.setFillColor(sf::Color::White);
-        firstText.setPosition(20, 20);
+        firstText.setPosition(0, 900);
 
         sf::Text secondText;
         secondText.setFont(font);
         secondText.setString("Create a 4th point to start the algorithm.");
-        secondText.setCharacterSize(75);
+        secondText.setCharacterSize(60);
         secondText.setFillColor(sf::Color::White);  
-        secondText.setPosition(300, 740);
+        secondText.setPosition(0, 900);
 
        
 
@@ -101,12 +104,15 @@ int main()
             ///calculate midpoint between random vertex and the last point in the vector
             ///push back the newly generated coord.
             
-            int randomVert = rand() % vertices.size();
+            for (int i = 0; i < 50; i++)
+            {
+                int randomVert = rand() % vertices.size();
 
-            double x = (points.back().x + vertices.at(randomVert).x) / 2.0;
-            double y = (points.back().y + vertices.at(randomVert).y) / 2.0;
-            
-            points.push_back(Vector2f(x, y));
+                double x = (points.back().x + vertices.at(randomVert).x) / 2.0;
+                double y = (points.back().y + vertices.at(randomVert).y) / 2.0;
+
+                points.push_back(Vector2f(x, y));
+            }
         }
 
         /*
@@ -115,6 +121,7 @@ int main()
 		****************************************
 		*/
         window.clear();
+        window.draw(Obi);
 
         if (vertices.size() < 3)
         {
@@ -125,7 +132,6 @@ int main()
             window.draw(secondText);
         }
 
-      
         for(int i = 0; i < vertices.size(); i++)
         {
             RectangleShape rect(Vector2f(10,10));
@@ -134,17 +140,14 @@ int main()
             window.draw(rect);
         }
        
-      
-
         for (int i = 0; i < points.size(); i++)
         {
-            CircleShape circ(3, 3);
-            circ.setPosition(Vector2f(points[i].x, points[i].y));
-            circ.setFillColor(Color::White);
-            window.draw(circ);
+            RectangleShape fill(Vector2f(3, 3));
+            fill.setPosition(Vector2f(points[i].x, points[i].y));
+            fill.setFillColor(Color::White);
+            window.draw(fill);
         }
         
-
         window.display();
     }
 }
