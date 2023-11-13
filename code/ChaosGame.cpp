@@ -104,7 +104,7 @@ int main()
             ///calculate midpoint between random vertex and the last point in the vector
             ///push back the newly generated coord.
             
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 100; i++)
             {
                 int randomVert = rand() % vertices.size();
 
@@ -132,7 +132,7 @@ int main()
             window.draw(secondText);
         }
 
-        for(int i = 0; i < vertices.size(); i++)
+        for(unsigned int i = 0; i < vertices.size(); i++)
         {
             RectangleShape rect(Vector2f(10,10));
             rect.setPosition(Vector2f(vertices[i].x, vertices[i].y));
@@ -140,7 +140,7 @@ int main()
             window.draw(rect);
         }
        
-        for (int i = 0; i < points.size(); i++)
+        for (unsigned int i = 0; i < points.size(); i++)
         {
             RectangleShape fill(Vector2f(3, 3));
             fill.setPosition(Vector2f(points[i].x, points[i].y));
