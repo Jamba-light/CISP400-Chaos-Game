@@ -1,2 +1,2 @@
 # CISP400-Chaos-Game
-# Students: Kyle Stowell & Cesare Gutierrez
+# Students: Kyle Stowell & Cesar Gutierrez
